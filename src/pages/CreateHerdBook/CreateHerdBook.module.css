@@ -16,7 +16,16 @@
 }
 
 .submit_btn {
-    margin: 30px;
+    margin: 30px auto 30px auto;
+    width: 40%;
+}
+
+.error_message {
+    color: red;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    
 }
 
 

@@ -22,11 +22,29 @@
     font-style: normal;
 }
 
+body{
+    background-color: var(--primary-color-light);
+}
+
 .center {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+}
+
+.btn.btn-primary {
+    background-color: #00334e;
+
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+                rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
+                rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.btn.btn-primary:disabled {
+    background-color: gray;
+    cursor: not-allowed;
+    box-shadow: none;
 }
 
 

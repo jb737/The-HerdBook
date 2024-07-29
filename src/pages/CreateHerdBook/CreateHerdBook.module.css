@@ -1,0 +1,23 @@
+
+
+.container {
+    border: 1px solid var(--primary-color-dark);
+    padding: 30px;
+    border-radius: 30px;
+    background-color: var(--secondary-color-light);
+
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+                rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
+                rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.title {
+    text-align: center;
+}
+
+.submit_btn {
+    margin: 30px;
+}
+
+
+

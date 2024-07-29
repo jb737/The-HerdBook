@@ -1,4 +1,5 @@
 import './App.css'
+import CreateHerdBook from './pages/CreateHerdBook/CreateHerdBook'
 
 
 
@@ -7,7 +8,7 @@ function App() {
 
   return (
     <>
-      <h1>Your HerdBook is coming soon</h1>
+      <CreateHerdBook />
     </>
   )
 }

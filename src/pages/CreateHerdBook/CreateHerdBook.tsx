@@ -31,14 +31,7 @@ const CreateHerdBook = (): JSX.Element => {
             alert("Please fill all required fields");
             return;
         }
-    
-        
 
-        if (password !== confirmPassword) {
-            alert("Passwords Do Not Match");
-            return;
-        }
-        
         alert (JSON.stringify({
             herdBookName,
             firstName,
@@ -56,9 +49,10 @@ const CreateHerdBook = (): JSX.Element => {
     return (
         <Container className = {classes.container + " center"}>
             <Row className = {classes.title}>
-                <h3>Create Your HerdBook:</h3>
+                <h3>Create Your Herd Book:</h3>
             </Row>
             <Form  noValidate validated={validated} onSubmit={onSubmitHandler}>
+            <fieldset>
             <Row>
                 <Col>
                 <CreateHerdBookFormInput
@@ -67,10 +61,12 @@ const CreateHerdBook = (): JSX.Element => {
                     title = "HerdBook Name"
                     value = {herdBookName}
                     onChange={(e) => setHerdBookName(e.target.value.trim())}
-                    errorMessage = "Please Provide a HerdBook Name"
+                    errorMessage = "Please Provide a Herd Book Name"
                     />
                 </Col>
             </Row>
+            </fieldset>
+            <fieldset>
             <Row>
             <Col>
                 <CreateHerdBookFormInput
@@ -93,6 +89,8 @@ const CreateHerdBook = (): JSX.Element => {
                     />
             </Col>
             </Row>
+            </fieldset>
+            <fieldset>
             <Row>
             <Col>
                 <Form.Label htmlFor = "cattleType">Cattle Type:</Form.Label>
@@ -124,6 +122,8 @@ const CreateHerdBook = (): JSX.Element => {
                     />
             </Col>
         </Row>
+        </fieldset>
+        <fieldset>
         <Row>
             <Col>
                 <CreateHerdBookFormInput
@@ -131,7 +131,7 @@ const CreateHerdBook = (): JSX.Element => {
                     required
                     title = "Password"
                     value = {password}
-                    onChange={(e) => setPassword(e.target.value.trim())}
+                    onChange = {(e) => setPassword(e.target.value.trim())}
                     errorMessage = "Please provide a unique Password for your HerdBook"
                     />
             </Col>
@@ -146,14 +146,34 @@ const CreateHerdBook = (): JSX.Element => {
                     />
             </Col>
             </Row>
-
-            {password !== confirmPassword &&<Row className = {classes.error_message}>Passwords Do Not Match!</Row>}
-            
-            <Button disabled = {password !== confirmPassword || !herdBookName || !firstName || !lastName || !cattleType || !email} className = {classes.submit_btn} type = "submit">Create HerdBook</Button>
-            
+                {password !== confirmPassword &&<Row className = {classes.error_message}>Passwords Do Not Match!</Row>}
+                </fieldset>
+                <div className = {classes.submit_btn_container}>
+          <Button
+                disabled = {
+                    password !== confirmPassword || 
+                    !herdBookName || 
+                    !firstName || 
+                    !lastName || 
+                    !cattleType || 
+                    !email
+                    } 
+                className = {classes.submit_btn}
+                type = "submit">Create Herd Book</Button>
+                </div>
             </Form>
         </Container>
     );
 };
 
 export default CreateHerdBook;
+
+
+
+{/*<Button  className = {classes.submit_btn} 
+                    type = "submit"
+                disabled = {
+                    password !== confirmPassword || !herdBookName || !firstName || !lastName || !cattleType || !email
+                    } 
+                   >Create HerdBook
+            </Button>*/}

@@ -4,7 +4,7 @@
     border: 1px solid var(--primary-color-dark);
     padding: 30px;
     border-radius: 30px;
-    background-color: var(--secondary-color-light);
+    background-color: var(--primary-color-light);
 
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
                 rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
@@ -15,10 +15,14 @@
     text-align: center;
 }
 
-.submit_btn {
-    margin: 30px auto 30px auto;
-    width: 40%;
+.submit_btn_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
 }
+
+
 
 .error_message {
     color: red;

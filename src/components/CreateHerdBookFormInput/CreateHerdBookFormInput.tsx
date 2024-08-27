@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 
 interface CreateHerdBookFormInputProps {
     title: string;
-    type: "text" | "email" | "password"
+    type: "text" | "email" | "password";
     required?: boolean;
     id?: string;
     value: string | number;
@@ -12,7 +12,17 @@ interface CreateHerdBookFormInputProps {
     onBlur?: (e:React.FocusEvent<HTMLInputElement>) => void;
 }
 
-export default function CreateHerdBookFormInput({title, type, required, id, value, onChange, onBlur = () => {}, placeholder, errorMessage}:CreateHerdBookFormInputProps): JSX.Element {
+export default function CreateHerdBookFormInput({
+    title, 
+    type, 
+    required, 
+    id, 
+    value, 
+    onChange, 
+    onBlur = () => {}, 
+    placeholder, 
+    errorMessage
+}:CreateHerdBookFormInputProps): JSX.Element {
     id = id? id : title;
 
     return (

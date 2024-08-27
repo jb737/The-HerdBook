@@ -1,9 +1,9 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
 :root {
-    --primary-color-light:#5588a3;
-    --primary-color-dark:#00334e; 
-    --secondary-color-light: #e8e8e8; 
+    --primary-color-light:#91a5b0;
+    --primary-color-dark:#064d74; 
+    --secondary-color-light: #babec5; 
     --secondary-color-dark:#145374; 
 }
 
@@ -22,8 +22,8 @@
     font-style: normal;
 }
 
-body{
-    background-color: var(--primary-color-light);
+body {
+    background-color: var(--secondary-color-light)!important;
 }
 
 .center {
@@ -34,7 +34,15 @@ body{
 }
 
 .btn.btn-primary {
-    background-color: #00334e;
+    background-color: var(--secondary-color-dark);
+
+    box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
+                rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 
+                rgba(0, 0, 0, 0.2) 0px -3px 0px inset;
+}
+
+.btn.btn-primary:hover {
+    background-color: var(--primary-color-dark);
 
     box-shadow: rgba(0, 0, 0, 0.4) 0px 2px 4px, 
                 rgba(0, 0, 0, 0.3) 0px 7px 13px -3px, 

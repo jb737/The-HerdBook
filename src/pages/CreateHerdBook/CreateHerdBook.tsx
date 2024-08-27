@@ -3,8 +3,6 @@ import { useState } from "react";
 import classes from "./CreateHerdBook.module.css";
 import CreateHerdBookFormInput from "../../components/CreateHerdBookFormInput/CreateHerdBookFormInput";
 
-//TODO: 1:37:06 in video 12. Still need to add form validation
-//TODO:1:37:06 in video 12. Style the damned button
 
 const CreateHerdBook = (): JSX.Element => {
 
@@ -51,7 +49,7 @@ const CreateHerdBook = (): JSX.Element => {
             <Row className = {classes.title}>
                 <h3>Create Your Herd Book:</h3>
             </Row>
-            <Form  noValidate validated={validated} onSubmit={onSubmitHandler}>
+            <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
             <fieldset>
             <Row>
                 <Col>

@@ -1,9 +1,9 @@
-import { Container, Form, Row, Col, Button } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Form, Row, Col, Button } from "react-bootstrap";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import classes from "./CreateHerdBook.module.css";
-import CreateHerdBookFormInput from "../../components/CreateHerdBookFormInput/CreateHerdBookFormInput";
-
+import FormInput from "../../components/FormInput/FormInput";
+import CustomCard from "../../components/CustomCard/CustomCard";
 
 const CreateHerdBook = (): JSX.Element => {
     const navigate = useNavigate();
@@ -44,124 +44,127 @@ const CreateHerdBook = (): JSX.Element => {
         });
     };
 
+    const form =   <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
+    <fieldset>
+    <Row>
+        <Col>
+        <FormInput
+            type = "text"
+            required
+            title = "Herd Book Name:"
+            value = {herdBookName}
+            onChange={(e) => setHerdBookName(e.target.value.trim())}
+            errorMessage = "Please Provide a Herd Book Name"
+            />
+        </Col>
+    </Row>
+    </fieldset>
+    <fieldset>
+    <Row>
+    <Col>
+        <FormInput
+            type = "text"
+            required
+            title = "First Name:"
+            value = {firstName}
+            onChange={(e) => setFirstName(e.target.value.trim())}
+            errorMessage = "Please Provide a First Name or initial"
+            />
+    </Col>
+    <Col>
+        <FormInput
+            type = "text"
+            required
+            title = "Last Name:"
+            value = {lastName}
+            onChange={(e) => setLastName(e.target.value.trim())}
+            errorMessage = "Please Provide a Last Name"
+            />
+    </Col>
+    </Row>
+    </fieldset>
+    <fieldset>
+    <Row>
+    <Col>
+        <Form.Label htmlFor = "cattleType">Cattle Type:</Form.Label>
+        <Form.Control 
+                required
+                as = "select"
+                type = "cattleType"
+                id = "cattleType"
+                value = {cattleType}
+                onChange = {(e) => setCattleType(e.target.value.trim())}
+            >
+                <option></option>
+            <option value = "1">Commercial Beef Cattle</option>
+            <option value = "2">Purebred Beef Cattle</option>
+            <option value = "3">Cattle that someone gave me. Yes, this is my herd</option>
+        </Form.Control>
+        <Form.Control.Feedback type="invalid">
+                    Please choose a Cattle type from the dropdown menu
+                </Form.Control.Feedback>     
+    </Col>
+    <Col>
+        <FormInput
+            type = "email"
+            required
+            title = "E-Mail Address:"
+            value = {email}
+            onChange={(e) => setEmail(e.target.value.trim())}
+            errorMessage = "Please provide a valid E-Mail Address"
+            />
+    </Col>
+</Row>
+</fieldset>
+<fieldset>
+<Row>
+    <Col>
+        <FormInput
+            type = "password"
+            required
+            title = "Password:"
+            value = {password}
+            onChange = {(e) => setPassword(e.target.value.trim())}
+            errorMessage = "Please provide a unique Password for your HerdBook"
+            />
+    </Col>
+    <Col>
+        <FormInput
+            type = "password"
+            required
+            title = "Confirm Password:"
+            value = {confirmPassword}
+            onChange={(e) => setConfirmPassword(e.target.value.trim())}
+            errorMessage = "Please Confirm your HerdBook Password"
+            />
+    </Col>
+    </Row>
+        {password !== confirmPassword &&<Row className = {classes.error_message}>Passwords Do Not Match!</Row>}
+        </fieldset>
+        <div className = {classes.submit_btn_container}>
+  <Button
+        disabled = {
+            password !== confirmPassword || 
+            !herdBookName || 
+            !firstName || 
+            !lastName || 
+            !cattleType || 
+            !email
+            } 
+        className = {classes.submit_btn} 
+        type = "submit">Create Herd Book</Button>
+        </div>
+    </Form>
+
+    const footer = <p>Already have an account? <Link title = "link to log-in page" to = "/login">Log-In here</Link></p>
 
     return (
-        <Container className = {classes.container + " center"}>
-            <Row className = {classes.title}>
-                <h3>Create Your Herd Book:</h3>
-            </Row>
-            <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
-            <fieldset>
-            <Row>
-                <Col>
-                <CreateHerdBookFormInput
-                    type = "text"
-                    required
-                    title = "Herd Book Name:"
-                    value = {herdBookName}
-                    onChange={(e) => setHerdBookName(e.target.value.trim())}
-                    errorMessage = "Please Provide a Herd Book Name"
-                    />
-                </Col>
-            </Row>
-            </fieldset>
-            <fieldset>
-            <Row>
-            <Col>
-                <CreateHerdBookFormInput
-                    type = "text"
-                    required
-                    title = "First Name:"
-                    value = {firstName}
-                    onChange={(e) => setFirstName(e.target.value.trim())}
-                    errorMessage = "Please Provide a First Name or initial"
-                    />
-            </Col>
-            <Col>
-                <CreateHerdBookFormInput
-                    type = "text"
-                    required
-                    title = "Last Name:"
-                    value = {lastName}
-                    onChange={(e) => setLastName(e.target.value.trim())}
-                    errorMessage = "Please Provide a Last Name"
-                    />
-            </Col>
-            </Row>
-            </fieldset>
-            <fieldset>
-            <Row>
-            <Col>
-                <Form.Label htmlFor = "cattleType">Cattle Type:</Form.Label>
-                <Form.Control 
-                        required
-                        as = "select"
-                        type = "cattleType"
-                        id = "cattleType"
-                        value = {cattleType}
-                        onChange = {(e) => setCattleType(e.target.value.trim())}
-                    >
-                        <option></option>
-                    <option value = "1">Commercial Beef Cattle</option>
-                    <option value = "2">Purebred Beef Cattle</option>
-                    <option value = "3">Cattle that someone gave me. Yes, this is my herd</option>
-                </Form.Control>
-                <Form.Control.Feedback type="invalid">
-                            Please choose a Cattle type from the dropdown menu
-                        </Form.Control.Feedback>     
-            </Col>
-            <Col>
-                <CreateHerdBookFormInput
-                    type = "email"
-                    required
-                    title = "E-Mail Address:"
-                    value = {email}
-                    onChange={(e) => setEmail(e.target.value.trim())}
-                    errorMessage = "Please provide a valid E-Mail Address"
-                    />
-            </Col>
-        </Row>
-        </fieldset>
-        <fieldset>
-        <Row>
-            <Col>
-                <CreateHerdBookFormInput
-                    type = "password"
-                    required
-                    title = "Password:"
-                    value = {password}
-                    onChange = {(e) => setPassword(e.target.value.trim())}
-                    errorMessage = "Please provide a unique Password for your HerdBook"
-                    />
-            </Col>
-            <Col>
-                <CreateHerdBookFormInput
-                    type = "password"
-                    required
-                    title = "Confirm Password:"
-                    value = {confirmPassword}
-                    onChange={(e) => setConfirmPassword(e.target.value.trim())}
-                    errorMessage = "Please Confirm your HerdBook Password"
-                    />
-            </Col>
-            </Row>
-                {password !== confirmPassword &&<Row className = {classes.error_message}>Passwords Do Not Match!</Row>}
-                </fieldset>
-                <div className = {classes.submit_btn_container}>
-          <Button
-                disabled = {
-                    password !== confirmPassword || 
-                    !herdBookName || 
-                    !firstName || 
-                    !lastName || 
-                    !cattleType || 
-                    !email
-                    } 
-                className = {classes.submit_btn}
-                type = "submit">Create Herd Book</Button>
-                </div>
-            </Form>
-        </Container>
+    <div className = {classes.page_container}>
+        <CustomCard title = {"Sign-Up"}
+                    content = {form}
+                    footer = {footer} />
+       
+        </div>
     );
 };
 

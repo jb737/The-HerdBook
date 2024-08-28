@@ -1,6 +1,6 @@
 import { Form } from "react-bootstrap";
 
-interface CreateHerdBookFormInputProps {
+interface FormInputProps {
     title: string;
     type: "text" | "email" | "password";
     required?: boolean;
@@ -12,7 +12,7 @@ interface CreateHerdBookFormInputProps {
     onBlur?: (e:React.FocusEvent<HTMLInputElement>) => void;
 }
 
-export default function CreateHerdBookFormInput({
+export default function FormInput({
     title, 
     type, 
     required, 
@@ -22,7 +22,7 @@ export default function CreateHerdBookFormInput({
     onBlur = () => {}, 
     placeholder, 
     errorMessage
-}:CreateHerdBookFormInputProps): JSX.Element {
+}:FormInputProps): JSX.Element {
     id = id? id : title;
 
     return (

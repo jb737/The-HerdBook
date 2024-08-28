@@ -1,0 +1,16 @@
+.page_container {
+    min-height: 100vh;
+    background-color: var(--secondary-color-light);
+}
+.submit_btn_container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 30px auto;
+}
+
+.submit_btn {
+    width: 30%;
+}
+
+

@@ -1,11 +1,12 @@
 import { Container, Form, Row, Col, Button } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import classes from "./CreateHerdBook.module.css";
 import CreateHerdBookFormInput from "../../components/CreateHerdBookFormInput/CreateHerdBookFormInput";
 
 
 const CreateHerdBook = (): JSX.Element => {
-
+    const navigate = useNavigate();
     const [validated, setValidated] = useState(false);
 
 
@@ -30,18 +31,18 @@ const CreateHerdBook = (): JSX.Element => {
             return;
         }
 
-        alert (JSON.stringify({
-            herdBookName,
-            firstName,
-            lastName,
-            cattleType,
-            email,
-            password,
-            confirmPassword,
-        }));
-        
-        alert
-    }
+        navigate("/", {
+            state: {
+                user: {
+                    herdBookName,
+                    firstName,
+                    lastName,
+                    cattleType,
+                    email,
+                },
+            },
+        });
+    };
 
 
     return (
@@ -56,7 +57,7 @@ const CreateHerdBook = (): JSX.Element => {
                 <CreateHerdBookFormInput
                     type = "text"
                     required
-                    title = "HerdBook Name"
+                    title = "Herd Book Name:"
                     value = {herdBookName}
                     onChange={(e) => setHerdBookName(e.target.value.trim())}
                     errorMessage = "Please Provide a Herd Book Name"
@@ -70,7 +71,7 @@ const CreateHerdBook = (): JSX.Element => {
                 <CreateHerdBookFormInput
                     type = "text"
                     required
-                    title = "First Name"
+                    title = "First Name:"
                     value = {firstName}
                     onChange={(e) => setFirstName(e.target.value.trim())}
                     errorMessage = "Please Provide a First Name or initial"
@@ -80,7 +81,7 @@ const CreateHerdBook = (): JSX.Element => {
                 <CreateHerdBookFormInput
                     type = "text"
                     required
-                    title = "Last Name"
+                    title = "Last Name:"
                     value = {lastName}
                     onChange={(e) => setLastName(e.target.value.trim())}
                     errorMessage = "Please Provide a Last Name"
@@ -113,7 +114,7 @@ const CreateHerdBook = (): JSX.Element => {
                 <CreateHerdBookFormInput
                     type = "email"
                     required
-                    title = "E-Mail Address"
+                    title = "E-Mail Address:"
                     value = {email}
                     onChange={(e) => setEmail(e.target.value.trim())}
                     errorMessage = "Please provide a valid E-Mail Address"
@@ -127,7 +128,7 @@ const CreateHerdBook = (): JSX.Element => {
                 <CreateHerdBookFormInput
                     type = "password"
                     required
-                    title = "Password"
+                    title = "Password:"
                     value = {password}
                     onChange = {(e) => setPassword(e.target.value.trim())}
                     errorMessage = "Please provide a unique Password for your HerdBook"
@@ -137,7 +138,7 @@ const CreateHerdBook = (): JSX.Element => {
                 <CreateHerdBookFormInput
                     type = "password"
                     required
-                    title = "Confirm Password"
+                    title = "Confirm Password:"
                     value = {confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value.trim())}
                     errorMessage = "Please Confirm your HerdBook Password"
@@ -168,10 +169,3 @@ export default CreateHerdBook;
 
 
 
-{/*<Button  className = {classes.submit_btn} 
-                    type = "submit"
-                disabled = {
-                    password !== confirmPassword || !herdBookName || !firstName || !lastName || !cattleType || !email
-                    } 
-                   >Create HerdBook
-            </Button>*/}

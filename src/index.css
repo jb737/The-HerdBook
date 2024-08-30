@@ -1,19 +1,18 @@
 @import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;0,900;1,300;1,400;1,700;1,900&display=swap');
 
 :root {
-    --primary-color-light:#91a5b0;
-    --primary-color-dark:#215069; 
-    --secondary-color-light: #babec5; 
-    --secondary-color-dark:#184a64; 
+    --primary-color-light:  #b7b7b7; 
+    --primary-color-dark:  #3e3e55;  
+    --secondary-color-light:#7d889b; 
+    --secondary-color-dark:   #547686; 
 }
 
 [data-theme = "dark"] {
-    --primary-color-light:#636e83; 
-    --primary-color-dark: #303841; 
-    --secondary-color-light: #718098;  
-    --secondary-color-dark:#3a4750; 
+    --primary-color-light: #858587;
+    --primary-color-dark: #2a2438;
+    --secondary-color-light:  #407389;
+    --secondary-color-dark:  #34465c; 
 }
-
 * {
     box-sizing: border-box;
     font-family: "Merriweather", serif;

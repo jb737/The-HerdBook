@@ -8,6 +8,8 @@ import CustomCard from "../../components/CustomCard/CustomCard";
 
 
 export default function LoginPage() {
+    const [theme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
     const navigate = useNavigate();
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
@@ -53,7 +55,7 @@ export default function LoginPage() {
     const footer =   <p>Don't have an account? <Link to = "/sign-up">Sign Up here</Link></p>
 
     return (
-<div className = {classes.page_container}>
+<div data-theme = {theme} className = {classes.page_container}>
     <CustomCard title = "Log-In"
                 content = {form}
                 footer = {footer} />

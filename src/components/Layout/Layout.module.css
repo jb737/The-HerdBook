@@ -1,0 +1,12 @@
+
+    .page_container {
+        min-height: 100vh;
+        background-color: var(--secondary-color-dark
+        );
+    }
+
+    .navigation_container {
+        background-color: var(--secondary-color-dark);
+    }
+   
+    

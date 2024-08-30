@@ -6,6 +6,8 @@ import FormInput from "../../components/FormInput/FormInput";
 import CustomCard from "../../components/CustomCard/CustomCard";
 
 const CreateHerdBook = (): JSX.Element => {
+    const [theme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+
     const navigate = useNavigate();
     const [validated, setValidated] = useState(false);
 
@@ -31,7 +33,7 @@ const CreateHerdBook = (): JSX.Element => {
             return;
         }
 
-        navigate("/", {
+        navigate("/", {//this is the function that we call, from the useNavigate hook we get a function called navigate with these arguments.
             state: {
                 user: {
                     herdBookName,
@@ -159,7 +161,7 @@ const CreateHerdBook = (): JSX.Element => {
     const footer = <p>Already have an account? <Link title = "link to log-in page" to = "/login">Log-In here</Link></p>
 
     return (
-    <div className = {classes.page_container}>
+    <div data-theme = {theme} className = {classes.page_container}>
         <CustomCard title = {"Sign-Up"}
                     content = {form}
                     footer = {footer} />

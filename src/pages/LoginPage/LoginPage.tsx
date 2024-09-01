@@ -52,7 +52,7 @@ export default function LoginPage() {
     </div>
 </Form>
 
-    const footer =   <p>Don't have an account? <Link to = "/sign-up">Sign Up here</Link></p>
+    const footer =   <p>Don't have an account? <Link to = "/account/sign-up">Sign Up here</Link></p>
 
     return (
 <div data-theme = {theme} className = {classes.page_container}>

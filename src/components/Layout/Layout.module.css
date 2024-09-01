@@ -5,8 +5,20 @@
         );
     }
 
-    .navigation_container {
-        background-color: var(--secondary-color-dark);
+    .navbar {
+        background-color: var(--primary-color-light);
     }
    
+    .navbar a {
+        text-decoration: none;
+        color: var(--primary-color-dark);
+        padding: 0px 15px;;
+    }
+
+    .navbar a:hover {
+        padding: 0px 15px;
+        text-decoration: none;
+        color:var(--secondary-color-light);
+        box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+    }
     

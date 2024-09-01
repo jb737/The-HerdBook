@@ -158,7 +158,7 @@ const CreateHerdBook = (): JSX.Element => {
         </div>
     </Form>
 
-    const footer = <p>Already have an account? <Link title = "link to log-in page" to = "/login">Log-In here</Link></p>
+    const footer = <p>Already have an account? <Link title = "link to log-in page" to = "/account/login">Log-In here</Link></p>
 
     return (
     <div data-theme = {theme} className = {classes.page_container}>

@@ -12,10 +12,11 @@ export default function NotFoundPage() {
                 <h5> Page not found</h5>
             <img className = {classes.not_found_img} alt = "The Herd Book logo" src = "src/assets/grey_cow_by_VectorPortal.png"/>
             <Row>
-            <Link type = "button" to = "/">Return to Dashboard</Link>
+            <Link title = "Return to Dashboard" type = "btn btn-secondary" to = "/">Return to Dashboard</Link>
             </Row>
         </div>
         </div>
     );
+ 
    
 }

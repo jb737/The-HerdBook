@@ -5,12 +5,14 @@ import LandingPage from "../pages/LandingPage/LandingPage";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import Layout from "../components/Layout/Layout";
 import ShopPage from "../pages/ShopPage/ShopPage";
+import BullFiles from "../pages/BullFiles/BullFiles";
 
 const routes = createRoutesFromElements (
     <>
     <Route path = "/" element = {<Layout />}>
         <Route index element = {<LandingPage />} />
         <Route path = "shop" element = {<ShopPage />} />
+        <Route path = "bull_files" element = {<BullFiles />} />
     </Route>
 
     <Route path = "/account">

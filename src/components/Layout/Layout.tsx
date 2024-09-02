@@ -15,7 +15,7 @@ export default function Layout () {
         <div data-theme = {theme} className = {classes.page_container}>
         <div className = {classes.navigation_container}>
     <Navbar expand="lg" className={classes.navbar }>
-        <Container>
+        
             <Link to = "/">
                 <img
                     alt="The Herd Book Logo"
@@ -39,7 +39,7 @@ export default function Layout () {
             <NavLink  to="/account/login"><CgLogOut />Log-Out</NavLink>
           </Nav>
             </Navbar.Collapse>
-        </Container>
+       
     </Navbar>
     </div>
         <Container>

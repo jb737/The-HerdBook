@@ -1,0 +1,9 @@
+.card_body {
+    background-color: var(--primary-color-light);
+    color: var(--secondary-color-dark);
+}
+
+.card_list {
+    background-color: var(--primary-color-light);
+    color: var(--secondary-color-dark);
+}

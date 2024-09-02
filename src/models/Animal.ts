@@ -1,5 +1,6 @@
 export default interface Animal {
-    id: string;
+    name: string;
+    imageUrl: string;
     sex: string;
     dateOfBirth: Date;
     wasBought?: boolean;

@@ -2,3 +2,17 @@
     min-height: 100vh;
     background-color: var(--secondary-color-light);
 }
+
+.folder_card {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
+    width: 37%;
+    background-color: var(--primary-color-light) !important;
+
+}
+
+.folder_img {
+    height:130px;
+}

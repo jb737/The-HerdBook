@@ -1,16 +1,26 @@
-import { useState } from "react";
-import { useLocation } from "react-router-dom";
-import User from "../../models/User";
-import AnimalCard from "../../components/AnimalCard/AnimalCard";
+import { useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
+import {  Card } from "react-bootstrap";
+import { UserContext } from "../../contexts/userContext";
 
 
 export default function BullFiles() {
-    const { state } = useLocation();
-    const [user] = useState<User>(state?.user);
+    const { user } =useContext(UserContext);
     
-    return (
+    return user ? (
         <div>
-            <AnimalCard />
+            <h1>Bull Files:</h1>
+            <Card style={{ width: '18rem' }}>
+      <Card.Body>
+        <Card.Title>animal name</Card.Title>
+        <Card.Text>
+          animal description
+        </Card.Text>
+        <Link className = "btn btn-primary" to = {`/bull_files`}>Animal Details</Link>
+      </Card.Body>
+    </Card>
+  
         </div>
-    );
+   ):(<Navigate to = "/account/login" />);
+    
 }

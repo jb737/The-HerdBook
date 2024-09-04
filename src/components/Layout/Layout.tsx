@@ -1,16 +1,23 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./Layout.module.css";
-import { Navbar, Container, Nav } from "react-bootstrap";
-import { Link, NavLink, Outlet } from "react-router-dom";
+import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import { HiOutlineShoppingCart } from "react-icons/hi";
 import { FiMessageSquare } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
+import { UserContext } from "../../contexts/userContext";
 
 
 export default function Layout () {
     const [theme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
+    const navigate = useNavigate();
+    const { setUser} = useContext(UserContext);
+    const onLogoutClickHandler = () => {
+        setUser(undefined);
+        navigate("/account/login");
+    }
     return (
         <div data-theme = {theme} className = {classes.page_container}>
         <div className = {classes.navigation_container}>
@@ -36,7 +43,7 @@ export default function Layout () {
 
                 <Nav>
             <NavLink to = "/settings"><IoSettingsOutline />Settings</NavLink>
-            <NavLink  to="/account/login"><CgLogOut />Log-Out</NavLink>
+            <button onClick = {onLogoutClickHandler}><CgLogOut />Log-Out</button>
           </Nav>
             </Navbar.Collapse>
        

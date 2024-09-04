@@ -1,21 +1,17 @@
-import { useState } from "react";
-import { Link, Navigate, useLocation } from "react-router-dom";
-import User from "../../models/User";
+import { useContext } from "react";
+import { Link, Navigate } from "react-router-dom";
 import { Card, Col, Row } from "react-bootstrap";
 import classes from "./LandingPage.module.css"
+import { UserContext } from "../../contexts/userContext";
 
 
 export default function LandingPage() {
-const { state } = useLocation();//how to access the state from useNavigate
-const [user] = useState<User>(state?.user);//user gets all the properties of state.user
+const {user} = useContext(UserContext);
 
     return user ? (
     <>
         <Row className={classes.title}>
-       <h3>Hello {user.firstName ?? ""}</h3>
-       </Row>
-       <Row>
-        <p>Welcome to your Herd Book.</p>
+       <h3>Welcome to your Herd Book.</h3>
        </Row>
        <Row>
         <Col md = {12}>
@@ -26,7 +22,7 @@ const [user] = useState<User>(state?.user);//user gets all the properties of sta
                             <Card.Text>
                                Cow / Heifer Files
                             </Card.Text>
-                            <Link className = "btn btn-primary" to = "/bull_files" >Go somewhere</Link>
+                            <Link className = "btn btn-primary" to = "/cow_files" >Go somewhere</Link>
                     </Card.Body>
             </Card>
         </Col>
@@ -38,7 +34,7 @@ const [user] = useState<User>(state?.user);//user gets all the properties of sta
                             <Card.Text>
                                Steer Files
                             </Card.Text>
-                            <Link className = "btn btn-primary" to = "/bull_files" >Go somewhere</Link>
+                            <Link className = "btn btn-primary" to = "/steer_files" >Go somewhere</Link>
                     </Card.Body>
             </Card>
         </Col>

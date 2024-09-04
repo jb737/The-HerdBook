@@ -5,17 +5,26 @@
         );
     }
 
-    .navbar {
+    .navbar,
+    .navbar button {
         background-color: var(--primary-color-light);
     }
    
-    .navbar a {
-        text-decoration: none;
-        color: var(--primary-color-dark);
-        padding: 0px 15px;;
+    .nav_item_container button{
+        background-color: transparent;
+        border: none;
     }
 
-    .navbar a:hover {
+    .navbar a,
+    .navbar button {
+        text-decoration: none;
+        color: var(--primary-color-dark);
+        padding: 0px 15px;
+        border: 0px;
+    }
+
+    .navbar a:hover,
+    .navbar button:hover {
         padding: 0px 15px;
         text-decoration: none;
         color:var(--secondary-color-light);

@@ -3,14 +3,16 @@ import { Link, useNavigate } from "react-router-dom";
 
 import classes from "./LoginPage.module.css";
 import FormInput from "../../components/FormInput/FormInput";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CustomCard from "../../components/CustomCard/CustomCard";
+import { UserContext } from "../../contexts/userContext";
 
 
 export default function LoginPage() {
     const [theme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 
     const navigate = useNavigate();
+    const userContext = useContext(UserContext)
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [validated, setValidated] = useState(false);
@@ -25,13 +27,16 @@ export default function LoginPage() {
         return;
         }
 
-        navigate("/",{
-        state: {
-            user: {
-                email,
-                },
-            },
-        });
+        userContext.setUser({
+            email,
+            id:"",
+            herdBookName: "",
+            firstName: "",
+            lastName: "",
+            cattleType: "",
+        })
+
+        navigate("/");
     };
 
     const form =  <Form noValidate validated = {validated} onSubmit = {onSubmitHandler}>

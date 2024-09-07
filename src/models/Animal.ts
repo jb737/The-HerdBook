@@ -1,7 +1,8 @@
 export default interface Animal {
     id: string;
+    name?: string;
     sex: string;
-    dateOfBirth: Date;
+    dateOfBirth?: Date;
     whenBought?: Date;
     boughtPrice?: number;
     whenCalved?: Date;

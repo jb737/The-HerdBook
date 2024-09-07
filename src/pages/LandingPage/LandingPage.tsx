@@ -1,61 +1,56 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import { Card, Col, Row } from "react-bootstrap";
+import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import classes from "./LandingPage.module.css"
 import { UserContext } from "../../contexts/userContext";
+import dummyAnimals from "../../components/dummyData/dummyAnimals";
+import Animal from "../../models/Animal";
+import { IoSearch } from "react-icons/io5";
 
 
 export default function LandingPage() {
 const {user} = useContext(UserContext);
+const [myAnimals] = useState<Animal[]>(dummyAnimals);
 
     return user ? (
     <>
         <Row className={classes.title}>
-       <h3>Welcome to your Herd Book.</h3>
+       <h1 className = " mt-5">Welcome to your Herd Book.</h1>
        </Row>
        <Row>
-        <Col md = {12}>
-            <Card className = {classes.folder_card }>
-                <Card.Img className = {classes.folder_img} variant="top" src="src/assets/vecteezy_cattle-icon-vector-illustration-silhouette-cow-icon-for_24765599.svg" />
-                    <Card.Body>
-                        <Card.Title>Cows</Card.Title>
-                            <Card.Text>
-                               Cow / Heifer Files
-                            </Card.Text>
-                            <Link className = "btn btn-primary" to = "/cow_files" >Go somewhere</Link>
-                    </Card.Body>
-            </Card>
+        <Col>
+            <Link className = "btn btn-secondary mt-5 mb-5" to = "/my_herdbook/animals">Add an Animal File</Link>
         </Col>
-        <Col md = {12}>
-        <Card className = {classes.folder_card }>
-                <Card.Img className = {classes.folder_img} variant="top" src="src/assets/vecteezy_cattle-icon-vector-illustration-silhouette-cow-icon-for_24765599.svg" />
-                    <Card.Body>
-                        <Card.Title>Steers</Card.Title>
-                            <Card.Text>
-                               Steer Files
-                            </Card.Text>
-                            <Link className = "btn btn-primary" to = "/steer_files" >Go somewhere</Link>
-                    </Card.Body>
-            </Card>
+        <Col>
+        <InputGroup className="mt-5 mb-3">
+        <Form.Control
+          placeholder="Search"
+          aria-label="Search"
+          aria-describedby="Search Animals"
+        />
+        <Button variant="outline-secondary" >
+        <IoSearch />
+        </Button>
+      </InputGroup>
         </Col>
-        <Col md = {12}>
-        <Card className = {classes.folder_card }>
-                <Card.Img alt = "bull" className = {classes.folder_img} variant="top" src="src/assets/vecteezy_logo-bull-silhouette-of-bull-silhouette-of-buffalo-retro_4646394 (1).svg" />
-                    <Card.Body>
-                        <Card.Title>Bulls</Card.Title>
-                            <Card.Text>
-                               Bull Files
-                            </Card.Text>
-                            <Link className = "btn btn-primary" to = "/bull_files" >Go to Bull Files</Link>
-                    </Card.Body>
-            </Card>
-        </Col>
+       </Row>
+       {myAnimals.length > 0 ? (
+         <div>
+            <p>You have {myAnimals.length} animals in your herd.</p>
+         <ul>
+             {myAnimals.map((animal) => (
+                 <li key = {animal.id}>{animal.id}</li>
+             ))}
+         </ul>
+        </div>
+       ) : (
+        <Row>
+        <p>No Animals Found</p>
         </Row>
-       <Row>
-
-       </Row>
+       )}
     </>
     ):(
         <Navigate to = "/account/login" />
     );
 }
+

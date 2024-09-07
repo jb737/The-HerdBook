@@ -5,7 +5,7 @@ interface CreateHerdBookFormInputProps {
     type: "text" | "email" | "password";
     required?: boolean;
     id?: string;
-    value: string | number;
+    value: string | number | Date;
     placeholder?: string;
     errorMessage?: string;
     onChange: (e:React.ChangeEvent<HTMLInputElement>) => void;
@@ -25,6 +25,8 @@ export default function CreateHerdBookFormInput({
 }:CreateHerdBookFormInputProps): JSX.Element {
     id = id? id : title;
 
+    const valueString = value instanceof Date ? value.toISOString().split("T")[0] : value;
+
     return (
     <>
       <Form.Label htmlFor = {id}>{title}</Form.Label>
@@ -32,7 +34,7 @@ export default function CreateHerdBookFormInput({
                         type = {type}
                         id = {id}
                         required = {required}
-                        value = {value}
+                        value = {valueString}
                         onChange = {onChange}
                         onBlur = {onBlur}
                         placeholder = {placeholder}

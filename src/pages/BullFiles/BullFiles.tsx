@@ -1,26 +1,25 @@
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
-import {  Card } from "react-bootstrap";
 import { UserContext } from "../../contexts/userContext";
+import Animal from "../../models/Animal";
+import dummyAnimals from "../../components/dummyData/dummyAnimals";
+import { Container } from "react-bootstrap";
 
 
 export default function BullFiles() {
     const { user } =useContext(UserContext);
+    const [myAnimals] = useState<Animal[]>(dummyAnimals.filter(p => p.sex === "bull"));
     
     return user ? (
-        <div>
+        <Container>
             <h1>Bull Files:</h1>
-            <Card style={{ width: '18rem' }}>
-      <Card.Body>
-        <Card.Title>animal name</Card.Title>
-        <Card.Text>
-          animal description
-        </Card.Text>
-        <Link className = "btn btn-primary" to = {`/bull_files`}>Animal Details</Link>
-      </Card.Body>
-    </Card>
-  
-        </div>
+        <ul>   
+        {myAnimals.map((animal) => (
+                 <Link to = {`/animals/${animal.id}`}><li key = {animal.id}>{animal.id}</li></Link>
+            ))
+            }
+        </ul>
+        </Container>
    ):(<Navigate to = "/account/login" />);
     
 }

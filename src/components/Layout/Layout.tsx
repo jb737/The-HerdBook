@@ -1,9 +1,8 @@
 import { useContext, useState } from "react";
 import classes from "./Layout.module.css";
-import { Navbar, Container, Nav, Button } from "react-bootstrap";
+import { Navbar, Container, Nav } from "react-bootstrap";
 import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
 
-import { HiOutlineShoppingCart } from "react-icons/hi";
 import { FiMessageSquare } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
 import { CgLogOut } from "react-icons/cg";
@@ -37,8 +36,9 @@ export default function Layout () {
             <Navbar.Toggle aria-controls="basic-navbar-nav" />
             <Navbar.Collapse id="basic-navbar-nav">
                 <Nav className="me-auto">
-                    <NavLink to={"/shop"}><HiOutlineShoppingCart />Shop</NavLink>
-                    <NavLink to = {"/messages"}><FiMessageSquare />Messages</NavLink>
+                    <NavLink to={"/bull_files"}><FiMessageSquare />Bull Files</NavLink>
+                    <NavLink to = {"/cow_files"}><FiMessageSquare />Cow Files</NavLink>
+                    <NavLink to = {"/steer_files"}><FiMessageSquare />Steer Files</NavLink>
                 </Nav>
 
                 <Nav>

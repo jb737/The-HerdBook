@@ -1,22 +1,29 @@
-import {  useState } from "react";
+import { useContext, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import classes from "./AnimalFormPage.module.css";
 import dummyAnimals from "../../components/dummyData/dummyAnimals";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Animal from "../../models/Animal";
+import { UserContext } from "../../contexts/userContext";
+
+import { IoSendOutline } from "react-icons/io5";
 
 
 export default function AnimalFormPage() {
-    const [isValidated, setValidated] = useState(false);
-    const [id, setId] = useState("");
-    const [sex, setSex] = useState("");
-    const [details, setDetails] = useState("");
-    const [importantEvents, setImportantEvents] = useState("");
-    const [veterinaryNotes, setVeterinaryNotes] = useState("");
-
-  
+    const { user } = useContext(UserContext);
 
     const navigate = useNavigate();
+    const { animalId } = useParams();
 
+    const animal = dummyAnimals.find((a) => a.id === animalId && a.herdBookName === user!.herdBookName);
+
+    const [isValidated, setValidated] = useState(false);
+    const [id, setId] = useState(animal?.id || "");
+    const [sex, setSex] = useState(animal?.sex || "");
+    const [details, setDetails] = useState(animal?.details ||"");
+    const [importantEvents, setImportantEvents] = useState(animal?.importantEvents || "");
+    const [veterinaryNotes, setVeterinaryNotes] = useState(animal?.veterinaryNotes || "");
+   
 
     const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
         const form = e.currentTarget;
@@ -28,27 +35,30 @@ export default function AnimalFormPage() {
             return;
         }
 
-        const newAnimal = {
+        const herdBookName = user!.herdBookName;
+
+        const newAnimal: Animal = {
             id ,
+            herdBookName,
             sex,
             importantEvents,
             details,
             veterinaryNotes,
-          
         }
     
     dummyAnimals.push(newAnimal);
 
     navigate(`/animals/${newAnimal.id}`);
     };
+
        
 
-    return(
+    return (
         <Container>
             <Row className="mt-5"> <h1>Add an Animal:</h1></Row>
             <Form noValidate validated={isValidated} onSubmit={onSubmitHandler}>
                 <Row className = "text-center mt-5 mb-5">
-                <Row ><Button className = {classes.submit_btn +" mb-3"} type = "submit" variant="success">Put this record in the Herd Book</Button></Row>
+                <Row ><Button className = {classes.submit_btn +" mb-3"} type = "submit" variant="success">Put this record in the Herd Book <IoSendOutline /></Button></Row>
                 <Col>
                     <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                         <Form.Label>Animal Name or Id:</Form.Label>
@@ -99,6 +109,7 @@ export default function AnimalFormPage() {
                     onChange = {(e) => setVeterinaryNotes(e.target.value)} />
                     </Form.Group>
                 </Row>
+                <p>HerdBook: {user!.herdBookName }</p>
             </Form>
         </Container>
     );

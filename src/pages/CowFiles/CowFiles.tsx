@@ -11,6 +11,7 @@ export default function CowFiles() {
             <div >
             <Link className = "btn btn-secondary mt-5 mb-5" to = "/my_herdbook/animals">Add an Animal File</Link>
             <h1>Cow Files:</h1>
+            <p>Cow Head Count: {(dummyAnimals.filter(p => p.sex === "cow")).length}</p>
             <div>
 
         <ul>

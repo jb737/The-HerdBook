@@ -13,3 +13,8 @@
 .animal_title {
     text-align: center;
 }
+
+.form_btn {
+    width: 70px;
+   margin-left: auto;
+}

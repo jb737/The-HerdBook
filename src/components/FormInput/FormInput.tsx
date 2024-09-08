@@ -2,7 +2,7 @@ import { Form } from "react-bootstrap";
 
 interface CreateHerdBookFormInputProps {
     title: string;
-    type: "text" | "email" | "password";
+    type: "text" | "email" | "password" | "date";
     required?: boolean;
     id?: string;
     value: string | number | Date;

@@ -7,8 +7,8 @@ import Layout from "../components/Layout/Layout";
 import BullFiles from "../pages/BullFiles/BullFiles";
 import CowFiles from "../pages/CowFiles/CowFiles";
 import SteerFiles from "../pages/SteerFiles/SteerFiles";
-import AnimalDetailsPage from "../pages/AnimalDetailsPage/AnimalDetailsPage";
 import AnimalFormPage from "../pages/AnimalFormPage/AnimalFormPage";
+import AnimalFile from "../pages/AnimalFile/AnimalFile";
 
 const routes = createRoutesFromElements (
     <>
@@ -17,7 +17,7 @@ const routes = createRoutesFromElements (
         <Route path = "cow_files" element = {<CowFiles />} />
         <Route path = "steer_files" element = {<SteerFiles />} />
         <Route path = "bull_files" element = {<BullFiles />} />
-        <Route path = "/animals/:animalId" element = {<AnimalDetailsPage />} />
+        <Route path = "/animals/:animalId" element = {<AnimalFile />} />
         <Route path =  "/my_herdbook/animals" element = {<AnimalFormPage />} />
     </Route>
 

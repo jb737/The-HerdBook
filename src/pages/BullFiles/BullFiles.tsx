@@ -12,6 +12,7 @@ export default function BullFiles() {
     
     return user ? (
         <Container>
+            <Link className = "btn btn-secondary mt-5 mb-5" to = "/my_herdbook/animals">Add an Animal File</Link>
             <h1>Bull Files:</h1>
         <ul>   
         {myAnimals.map((animal) => (

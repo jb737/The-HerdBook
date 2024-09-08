@@ -14,6 +14,7 @@ export default function SteerFiles() {
          <Link className = "btn btn-secondary mt-5 mb-5" to = "/my_herdbook/animals">Add an Animal File</Link>
          </div>
             <h1>Steer Files:</h1>
+            <p>You have {(dummyAnimals.filter(p => p.sex === "steer")).length} Steer</p>
              <ul>
             {myAnimals.map((animal: Animal) => (
                

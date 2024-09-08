@@ -1,24 +1,32 @@
  const dummyAnimals = [
     {
         id: "45",
-        sex: "Steer",
-        dateOfBirth: new Date(),
+        sex: "steer",
+        details:"fas",
+        importantEvents: "fsa",
+        veterinaryNotes: "None",
     },
     {
         id: "12",
-        sex: "Cow",
-        dateOfBirth: new Date(),
-        disposition: "Spicy",
+        sex: "cow",
+        details:"dsa",
+        importantEvents: "sfdas",
+        veterinaryNotes: "None",
     },
     {
         id: "365",
-        sex: "Bull",
-        dateOfBirth: new Date(),
+        sex: "bull",
+        details:"fdsaf",
+        importantEvents: "safdasd",
+        veterinaryNotes: "None",
+       
     },
     {
         id: "145",
-        sex: "Cow",
-        dateOfBirth: new Date(),
+        sex: "cow",
+        details: "fdsa",
+        importantEvents: "safdasd",
+        veterinaryNotes: "None",
     }
 ]
 

@@ -40,3 +40,17 @@
 
        </Row>
     </>
+
+
+
+THIS CODE FROM LANDING PAGE!!!!
+     {myAnimals.length > 0 ? (
+            <div>
+            <h3>Total Animal Head Count: {myAnimals.length}</h3>
+         <ul>
+             {myAnimals.map((animal) => (
+                 <li key = {animal.id}>{animal.name}</li>
+             ))};
+         </ul>
+         </div>
+          )};

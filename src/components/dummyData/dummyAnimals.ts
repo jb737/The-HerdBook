@@ -1,6 +1,9 @@
- const dummyAnimals = [
+import Animal from "../../models/Animal";
+
+ const dummyAnimals: Animal[] = [
     {
-        id: "45",
+        id: "1",
+        name: "45",
         herdBookName: "",
         sex: "steer",
         details:"fas",
@@ -8,7 +11,8 @@
         veterinaryNotes: "None",
     },
     {
-        id: "12",
+        id: "2",
+        name: "12",
         herdBookName: "",
         sex: "cow",
         details:"dsa",
@@ -17,7 +21,8 @@
         
     },
     {
-        id: "365",
+        id: "3",
+        name: "365",
         herdBookName: "",
         sex: "bull",
         details:"fdsaf",
@@ -25,8 +30,9 @@
         veterinaryNotes: "None",
        
     },
-    {
-        id: "145",
+    {   
+        id: "4",
+        name: "145",
         herdBookName: "",
         sex: "cow",
         details: "fdsa",

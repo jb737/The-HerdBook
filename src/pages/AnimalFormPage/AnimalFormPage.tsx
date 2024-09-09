@@ -1,7 +1,6 @@
 import { useContext, useState } from "react";
 import { Button, Col, Container, Form, Row } from "react-bootstrap";
 import classes from "./AnimalFormPage.module.css";
-import dummyAnimals from "../../components/dummyData/dummyAnimals";
 import { useNavigate, useParams } from "react-router-dom";
 import Animal from "../../models/Animal";
 import { UserContext } from "../../contexts/userContext";
@@ -15,10 +14,11 @@ export default function AnimalFormPage() {
     const navigate = useNavigate();
     const { animalId } = useParams();
 
-    const animal = dummyAnimals.find((a) => a.id === animalId && a.herdBookName === user!.herdBookName);
+    const animal = undefined;
 
     const [isValidated, setValidated] = useState(false);
-    const [id, setId] = useState(animal?.id || "");
+    //const [id, setId] = useState(animal?.id || "");
+    const [name, setName] = useState(animal?.name || "")
     const [sex, setSex] = useState(animal?.sex || "");
     const [details, setDetails] = useState(animal?.details ||"");
     const [importantEvents, setImportantEvents] = useState(animal?.importantEvents || "");
@@ -38,15 +38,14 @@ export default function AnimalFormPage() {
         const herdBookName = user!.herdBookName;
 
         const newAnimal: Animal = {
-            id ,
+            id: "" ,
+            name,
             herdBookName,
             sex,
             importantEvents,
             details,
             veterinaryNotes,
         }
-    
-    dummyAnimals.push(newAnimal);
 
     navigate(`/animals/${newAnimal.id}`);
     };
@@ -64,9 +63,9 @@ export default function AnimalFormPage() {
                         <Form.Label>Animal Name or Id:</Form.Label>
                         <Form.Control
                         required
-                         type="id" 
-                         value = {id}
-                         onChange= {(e) => setId(e.target.value)}
+                         type="name" 
+                         value = {name}
+                         onChange= {(e) => setName(e.target.value)}
                          />
                     </Form.Group>
                 </Col>

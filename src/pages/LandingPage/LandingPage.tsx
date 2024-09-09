@@ -1,16 +1,25 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Link, Navigate } from "react-router-dom";
 import { Button, Col, Form, InputGroup, Row } from "react-bootstrap";
 import classes from "./LandingPage.module.css"
 import { UserContext } from "../../contexts/userContext";
-import dummyAnimals from "../../components/dummyData/dummyAnimals";
+//import dummyAnimals from "../../components/dummyData/dummyAnimals";
 import Animal from "../../models/Animal";
 import { IoSearch } from "react-icons/io5";
+import usersService from "../../services/usersService";
 
 
 export default function LandingPage() {
 const {user} = useContext(UserContext);
-const [myAnimals] = useState<Animal[]>(dummyAnimals);
+const [myAnimals, setMyAnimals] = useState<Animal[]>([]);
+
+useEffect(() => {
+  const getUsersAnimals = async() => {
+    const animals = await usersService.getUserAnimals(1);
+    setMyAnimals(animals);
+  };
+  getUsersAnimals();
+},[]);
 
     return user ? (
     <>
@@ -39,7 +48,7 @@ const [myAnimals] = useState<Animal[]>(dummyAnimals);
             <p>You have {myAnimals.length} animals in your herd.</p>
          <ul>
              {myAnimals.map((animal) => (
-                 <li key = {animal.id}>{animal.id}</li>
+                 <li key = {animal.id}>{animal.name}</li>
              ))}
          </ul>
         </div>

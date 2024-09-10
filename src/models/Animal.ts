@@ -1,7 +1,7 @@
 export default interface Animal {
-    id: string;
+    id: number ;
     name: string;
-    herdBookName:string;
+    herdBookName: number;
     sex: string;
     importantEvents: string;
     details: string;

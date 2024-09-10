@@ -1,5 +1,5 @@
 export default interface User {
-    id: string;
+    id: number;
     herdBookName: string;
     firstName: string;
     lastName: string;

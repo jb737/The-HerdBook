@@ -28,8 +28,9 @@ export default function LoginPage() {
         }
 
         userContext.setUser({
+            
             email,
-            id:"",
+            id: 1,
             herdBookName: "",
             firstName: "",
             lastName: "",

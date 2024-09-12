@@ -2,14 +2,14 @@ import { useContext, useEffect, useState } from "react";
 import { Alert, Button, Col, Container, Form, Row } from "react-bootstrap";
 import classes from "./AnimalFormPage.module.css";
 import { useNavigate, useParams } from "react-router-dom";
-import Animal from "../../models/Animal";
+//import Animal from "../../models/Animal";
 import { UserContext } from "../../contexts/userContext";
 import { IoSendOutline } from "react-icons/io5";
 import animalsService from "../../services/animalsService";
 
 
 export default function AnimalFormPage() {
-    const { user } = useContext(UserContext);
+    const { userId } = useContext(UserContext);
     const navigate = useNavigate();
     const { animalId } = useParams();
 
@@ -17,34 +17,37 @@ export default function AnimalFormPage() {
     const [hasError, setHasError] = useState<boolean>(false);
     const [isValidated, setValidated] = useState(false);
 
-    const [name, setName] = useState("")
+    const [name, setName] = useState("");
     const [sex, setSex] = useState( "");
     const [details, setDetails] = useState("");
     const [importantEvents, setImportantEvents] = useState("");
     const [veterinaryNotes, setVeterinaryNotes] = useState("");
 
+
     useEffect(() => {
-        const getAnimal = async() => {
-            try {
-                setIsLoading(true);
-                const {name, sex, details, importantEvents, veterinaryNotes} = await animalsService.getAnimalById(Number(animalId));
-                setName(name);
-                setSex(sex);
-                setDetails(details ?? "");
-                setImportantEvents(importantEvents ?? "");
-                setVeterinaryNotes(veterinaryNotes ?? "");
-            } catch (error) {
-                setHasError(true);
-            } finally {
-                setIsLoading(false);
-            }
-        }
+     const getAnimal = async() => {
+    try {
+        setIsLoading(true);
+        const response = await animalsService.getAnimalById(animalId!);
+        console.log(response); // Check the structure of the response
+        const {name, sex, details, importantEvents, veterinaryNotes} = response;
+        setName(name);
+        setSex(sex!);
+        setDetails(details ?? "");
+        setImportantEvents(importantEvents ?? "");
+        setVeterinaryNotes(veterinaryNotes ?? "");
+    } catch (error) {
+        setHasError(true);
+    } finally {
+        setIsLoading(false);
+    }
+}
+
 
         if(animalId){
             getAnimal();
         }
     }, [animalId])
-
 
 
     const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -57,19 +60,45 @@ export default function AnimalFormPage() {
             return;
         }
 
-        //const herdBookName = user!.herdBookName;
+        try {
+            setIsLoading(true);
+            
+            if (animalId) {
+                    await animalsService.updateAnimal(
+                    name,
+                    sex,
+                    details,
+                    importantEvents,
+                    veterinaryNotes,
+                );
+                navigate(`/:userId/animals/${animalId}`);
+            } else { 
+                const newAnimal = await animalsService.createAnimal(
+                    userId!,
+                    name,
+                    sex,
+                    details,
+                    importantEvents,
+                    veterinaryNotes
+                );
+                navigate(`/:userId/animals/${newAnimal._id}`);
+            }
+            }  catch (error) {
+                setHasError(true);
+              } finally {
+                setIsLoading(false);
+              }
+            };
 
-        const newAnimal: Animal = {
-            id: 6,
-            name,
-            herdBookName: user!.id,
-            sex,
-            importantEvents,
-            details,
-            veterinaryNotes,
-        };
-    navigate(`/animals/${newAnimal.id}`);
-    };
+           {/*} const newAnimal = await animalsService.createAnimal(userId!, name, sex, details, importantEvents, veterinaryNotes)
+
+            navigate(`${newAnimal._id}`);
+        } catch (error) {
+            setHasError(true);
+        } finally {
+            setIsLoading(false);
+        }
+    };*/}
 
      const pageContents = isLoading ? (<h5>Loading...</h5>) : ( <Container>
      <Row className="mt-5"> <h1>Add an Animal:</h1></Row>
@@ -91,7 +120,7 @@ export default function AnimalFormPage() {
              <Form.Group className="mb-3" >
                  <Form.Label>Animal Sex:</Form.Label>
                  <Form.Control
-                 required
+                 //required
                   type="sex" 
                   value = {sex}
                   onChange= {(e) => setSex(e.target.value)}
@@ -99,7 +128,7 @@ export default function AnimalFormPage() {
              </Form.Group>
          </Col>
          </Row>
-        <Row>
+         <Row>
         <Form.Group className="mb-3" >
              <Form.Label>Important Events:</Form.Label>
              <Form.Control as="textarea" rows={3}

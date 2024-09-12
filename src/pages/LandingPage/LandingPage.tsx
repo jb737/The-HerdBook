@@ -1,39 +1,38 @@
 import { useContext, useEffect, useState } from "react";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useParams } from "react-router-dom";
 import { Alert, Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
 import classes from "./LandingPage.module.css"
 import { UserContext } from "../../contexts/userContext";
-//import dummyAnimals from "../../components/dummyData/dummyAnimals";
 import Animal from "../../models/Animal";
 import { IoSearch } from "react-icons/io5";
 import usersService from "../../services/usersService";
 
 
 export default function LandingPage() {
-const { user } = useContext(UserContext);
+const { userId } = useContext(UserContext);
+const { animalId } = useParams();
 const [isLoading, setIsLoading] = useState<boolean>(true);
 const [hasError, setHasError] = useState<boolean>(false);
 const [myAnimals, setMyAnimals] = useState<Animal[]>([]);
 
 useEffect(() => {
-  const getUsersAnimals = async() => {
+  const getUsersAnimals = async () => {
 
     try {
-      const animals = await usersService.getUserAnimals(user!.id);
+      const animals = await usersService.getUserAnimals(userId!);
         setMyAnimals(animals);
-        setIsLoading(false);
     } catch (error) {
       setHasError(true);
+    } finally {
+      setIsLoading(false);
     }
-
-    
   };
   getUsersAnimals();
-},[user]);
+},[userId, animalId]);
 
 const pageContents =    <div>  <Row>
 <Col>
-    <Link className = "btn btn-secondary mt-5 mb-5" to = "/my_herdbook/animals">Add an Animal File</Link>
+    <Link className = "btn btn-secondary mt-5 mb-5" to = "/:userId/animals">Add an Animal File</Link>
 </Col>
 <Col>
 <InputGroup className="mt-5 mb-3">
@@ -52,20 +51,22 @@ const pageContents =    <div>  <Row>
 {isLoading ? (
   <h5>Loading...</h5>
 ) : (
-
   <div>
   <p>Total head count: {myAnimals.length}</p>
-<ul>
+  <ul className={classes.list}>
    {myAnimals.map((animal) => (
-       <li key = {animal.id}>{animal.name}</li>
+     <div> <Link to = {`/:userId/animals/${animal._id}`}>{animal.name}</Link><li className={classes.li_item} key = {animal._id}>
+      </li>
+    </div> 
    ))}
+   
 </ul>
 </div>
 )}
 </Container>
 </div>
 
-    return user ? (
+    return userId ? (
     <>
         <Row className={classes.title}>
        <h1 className = " mt-5">Welcome to your Herd Book.</h1>

@@ -54,3 +54,20 @@ THIS CODE FROM LANDING PAGE!!!!
          </ul>
          </div>
           )};
+
+
+
+
+          this code from update animal on form PAGE
+          try {
+            setIsLoading(true);
+
+            const newAnimal = await animalsService.createAnimal(userId!, name, sex, details, importantEvents, veterinaryNotes)
+
+            navigate(`${newAnimal._id}`);
+        } catch (error) {
+            setHasError(true);
+        } finally {
+            setIsLoading(false);
+        }
+    };

@@ -17,9 +17,9 @@ const routes = createRoutesFromElements (
         <Route path = "cow_files" element = {<CowFiles />} />
         <Route path = "steer_files" element = {<SteerFiles />} />
         <Route path = "bull_files" element = {<BullFiles />} />
-            <Route path = "/animals/:animalId" element = {<AnimalFile />} />
-            {/*<Route path =  "/my_herdbook/animals" element = {<AnimalFormPage />} />*/}
-                <Route path =  "/my_herdbook/animals/:animalId?" element = {<AnimalFormPage />} />
+            <Route path = ":userId/animals/:animalId" element = {<AnimalFile />} />
+            {/*<Route path =  "/:userId/animals" element = {<AnimalFormPage />} />*/}
+                <Route path =  "/:userId/animals/:animalId?" element = {<AnimalFormPage />} />
     </Route>
 
     <Route path = "/account">
@@ -34,4 +34,4 @@ const routes = createRoutesFromElements (
    const router = createBrowserRouter(routes)
 
    export default router;
-
+//:userId added to details path

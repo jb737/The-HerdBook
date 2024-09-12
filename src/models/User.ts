@@ -1,8 +1,8 @@
+
 export default interface User {
-    id: number;
+    id: string;
     herdBookName: string;
     firstName: string;
     lastName: string;
-    cattleType: string;
     email: string;
 }

@@ -19,3 +19,7 @@
                 rgba(0, 0, 0, 0.09) 0px 16px 8px, 
                 rgba(0, 0, 0, 0.09) 0px 32px 16px;
 }
+
+.list {
+    list-style: none;
+}

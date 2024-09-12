@@ -1,52 +1,60 @@
-import { Form, Row, Col, Button } from "react-bootstrap";
+import { Form, Row, Col, Button, Alert } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import classes from "./CreateHerdBook.module.css";
 import FormInput from "../../components/FormInput/FormInput";
 import CustomCard from "../../components/CustomCard/CustomCard";
+import usersService from "../../services/usersService";
+import { UserContext } from "../../contexts/userContext";
 
 const CreateHerdBook = (): JSX.Element => {
     const [theme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 
     const navigate = useNavigate();
     const [validated, setValidated] = useState(false);
+    const { setUserId } = useContext(UserContext);
+
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [hasError, setHasError] = useState<boolean>(false);
+
 
 
     const [herdBookName, setHerdBookName] = useState("");
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
-    const [cattleType, setCattleType] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const onSubmitHandler = (e: React.FormEvent<HTMLFormElement>) => {
+    const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
         const form = e.currentTarget;
         e.preventDefault();
         e.stopPropagation();
 
-        setValidated(true);
-
-        
+        // setValidated(true);
+        // if (form.checkValidity() === false) {
+        //     alert("Please fill all required fields");
+        //     return;
+        // }
         if (form.checkValidity() === false) {
-            alert("Please fill all required fields");
+            setValidated(true);
             return;
-        }
+          }
 
-        navigate("/", {//this is the function that we call, from the useNavigate hook we get a function called navigate with these arguments.
-            state: {
-                user: {
-                    herdBookName,
-                    firstName,
-                    lastName,
-                    cattleType,
-                    email,
-                },
-            },
-        });
+        try {
+            const newUserId = await usersService.signup({ id: "", herdBookName, firstName, lastName, email, password, confirmPassword})
+            setUserId(newUserId);
+            navigate("/");
+        } catch (error) {
+            setHasError(true);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
-    const form =   <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
+    const form = 
+
+        <Form noValidate validated={validated} onSubmit={onSubmitHandler}>
     <fieldset>
     <Row>
         <Col>
@@ -85,27 +93,7 @@ const CreateHerdBook = (): JSX.Element => {
     </Col>
     </Row>
     </fieldset>
-    <fieldset>
-    <Row>
-    <Col>
-        <Form.Label htmlFor = "cattleType">Cattle Type:</Form.Label>
-        <Form.Control 
-                required
-                as = "select"
-                type = "cattleType"
-                id = "cattleType"
-                value = {cattleType}
-                onChange = {(e) => setCattleType(e.target.value.trim())}
-            >
-                <option></option>
-            <option value = "1">Commercial Beef Cattle</option>
-            <option value = "2">Purebred Beef Cattle</option>
-            <option value = "3">Cattle that someone gave me. Yes, this is my herd</option>
-        </Form.Control>
-        <Form.Control.Feedback type="invalid">
-                    Please choose a Cattle type from the dropdown menu
-                </Form.Control.Feedback>     
-    </Col>
+   
     <Col>
         <FormInput
             type = "email"
@@ -116,8 +104,6 @@ const CreateHerdBook = (): JSX.Element => {
             errorMessage = "Please provide a valid E-Mail Address"
             />
     </Col>
-</Row>
-</fieldset>
 <fieldset>
 <Row>
     <Col>
@@ -150,7 +136,6 @@ const CreateHerdBook = (): JSX.Element => {
             !herdBookName || 
             !firstName || 
             !lastName || 
-            !cattleType || 
             !email
             } 
         className = {classes.submit_btn} 
@@ -159,15 +144,22 @@ const CreateHerdBook = (): JSX.Element => {
     </Form>
 
     const footer = <p>Already have an account? <Link title = "link to log-in page" to = "/account/login">Log-In here</Link></p>
+    
 
-    return (
-    <div data-theme = {theme} className = {classes.page_container}>
-        <CustomCard title = {"Sign-Up"}
-                    content = {form}
-                    footer = {footer} />
-       
-        </div>
-    );
+    const pageContents = isLoading ? (<h5>Loading...</h5>) : (
+        (
+            <div data-theme = {theme} className = {classes.page_container}>
+                <CustomCard title = {"Sign-Up"}
+                            content = {form}
+                            footer = {footer} />
+               
+                </div>
+            )
+    )
+        
+    return  <div>
+    {hasError ? <Alert variant = "danger">Something went wrong. Please try again</Alert> : pageContents}
+    </div>
 };
 
 export default CreateHerdBook;

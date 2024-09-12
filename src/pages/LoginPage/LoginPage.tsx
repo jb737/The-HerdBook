@@ -6,18 +6,25 @@ import FormInput from "../../components/FormInput/FormInput";
 import { useContext, useState } from "react";
 import CustomCard from "../../components/CustomCard/CustomCard";
 import { UserContext } from "../../contexts/userContext";
+import usersService from "../../services/usersService";
+import { Axios, AxiosError } from "axios";
+import ErrorMessageAlert from "../../components/ErrorMessageAlert/ErrorMessageAlert";
 
 
 export default function LoginPage() {
     const [theme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
 
+    const { setUserId } = useContext(UserContext);
+
     const navigate = useNavigate();
-    const userContext = useContext(UserContext)
+    const [isLoading, setIsLoading] = useState<boolean>(false);
+    const [errorMessage, setErrorMessage] = useState<string>("");
+    
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [validated, setValidated] = useState(false);
 
-    const onSubmitHandler = (event: React.FormEvent<HTMLFormElement>) => {
+    const onSubmitHandler = async (event: React.FormEvent<HTMLFormElement>) => {
         const form = event.currentTarget;
         event.preventDefault();
         event.stopPropagation();
@@ -27,17 +34,19 @@ export default function LoginPage() {
         return;
         }
 
-        userContext.setUser({
-            
-            email,
-            id: 1,
-            herdBookName: "",
-            firstName: "",
-            lastName: "",
-            cattleType: "",
-        })
+        try {
+            setIsLoading(true);
+            const userId = await usersService.login(email, password);
 
-        navigate("/");
+            setUserId(userId);
+    
+            navigate("/");
+        } catch (error) {
+            const err = error as AxiosError;
+            setErrorMessage(err.response?.data as string);
+        } finally {
+            setIsLoading(false);
+        }
     };
 
     const form =  <Form noValidate validated = {validated} onSubmit = {onSubmitHandler}>
@@ -63,8 +72,9 @@ export default function LoginPage() {
     return (
 <div data-theme = {theme} className = {classes.page_container}>
     <CustomCard title = "Log-In"
-                content = {form}
-                footer = {footer} />
+                content ={isLoading ? <h3>"Loading..."</h3> : form} 
+                footer = {isLoading ? <></> :  footer} />
+    {errorMessage && <ErrorMessageAlert message = {errorMessage} />}
 </div>
     );
 }

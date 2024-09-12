@@ -1,10 +1,12 @@
 export default interface Animal {
-    id: number ;
+    _id: string ;//add_
     name: string;
-    herdBookName: number;
-    sex: string;
-    importantEvents: string;
-    details: string;
-    veterinaryNotes: string;
+    //herdBookName?: string;//here was number
+    sex?: string;
+    importantEvents?: string;
+    details?: string;
+    veterinaryNotes?: string;
+    ownerId: string;//just added these two
+    ownerEmail: string;
 }
 

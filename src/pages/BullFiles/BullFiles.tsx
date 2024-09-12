@@ -7,25 +7,26 @@ import usersService from "../../services/usersService";
 
 
 export default function BullFiles() {
-    const { user } =useContext(UserContext);
+    const { userId } =useContext(UserContext);
     const [myAnimals, setMyAnimals] = useState<Animal[]>([]);
     const [isLoading, setIsLoading] = useState<boolean>(true);
     const [hasError, setHasError] = useState<boolean>(false);
 
     useEffect(() => {
-        const getUsersAnimals = async () => {
-          try {
-            const animals = await usersService.getUserAnimals(1);
-            setMyAnimals(animals);
-            setIsLoading(false);
-          } catch (error) {
-            setHasError(true);
-          }
-         
-        };
-      
-        getUsersAnimals();
-      },[]);
+      const getUsersAnimals = async () => {
+        try {
+          const animals = await usersService.getUserAnimals(userId!);
+          setMyAnimals(animals);
+        } catch (error) {
+          setHasError(true);
+        } finally {
+          setIsLoading(false);
+        }
+       
+      };
+    
+      getUsersAnimals();
+    },[userId]);
 
       const myBullAnimals = (myAnimals.filter((p) => p.sex === "bull"));
       
@@ -34,13 +35,13 @@ export default function BullFiles() {
       {isLoading ? (<h5>Loading...</h5>) : (
           <>
           <Container>
-          <Link className = "btn btn-secondary mt-5 mb-5" to = "/my_herdbook/animals">Add an Animal File</Link>
+          <Link className = "btn btn-secondary mt-5 mb-5" to = "/:userId/animals">Add an Animal File</Link>
           <h1>Bull Files:</h1>
           <p>Bull Head Count: {myBullAnimals.length}</p>
         
       <ul>   
           {myBullAnimals.map((animal) => (
-             <Link to = {`/animals/${animal.id}`}><li key = {animal.id}>{animal.name}</li></Link>
+             <Link to = {`/:userId/animals/${animal._id}`}><li key = {animal._id}>{animal.name}</li></Link>
           ))
          }
       </ul>
@@ -50,7 +51,7 @@ export default function BullFiles() {
 }
     </Container>
     
-    return user ? (
+    return userId ? (
       <div>
       {hasError ? <Alert variant = "danger">Something went wrong. Please try again</Alert> : pageContents}
       </div>

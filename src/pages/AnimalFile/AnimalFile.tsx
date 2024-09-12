@@ -8,38 +8,52 @@ import { MdDeleteForever } from "react-icons/md";
 import { UserContext } from "../../contexts/userContext";
 import Animal from "../../models/Animal";
 import animalsService from "../../services/animalsService";
+import AppError from "../../models/AppError";
+import { AxiosError } from "axios";
 
 export default function AnimalFile() {
-    const { user } = useContext(UserContext);
+    const { userId } = useContext(UserContext);
     const navigate = useNavigate()
     const { animalId } = useParams();
 
 
     const [animal, setAnimal] = useState<Animal>({} as Animal);
     const [isLoading, setIsLoading] = useState<boolean>(true);
-    const [hasError, setHasError] = useState<boolean>(false);
+    const [error, setError] = useState<AppError | undefined>();
+    const [myAnimals, setMyAnimals] = useState<Animal[]>([]);
 
     useEffect(() => {
         const getAnimal = async () => {
             try {
-                const animal = await animalsService.getAnimalById(Number(animalId));
+                const animal = await animalsService.getAnimalById(animalId!);
                 setAnimal(animal);
             } catch (error) {
-              setHasError(true);
+                const e = error as AxiosError;
+              setError({ message: e.response?.data as string });
             } finally {
                 setIsLoading(false);
             }
         };
-        getAnimal();
-    },[animalId, hasError]);
+
+        if (animalId) {
+            getAnimal();
+        }
+    }, [animalId, userId]);
     
 
-    const onDeleteAnimalClickHandler = async (animalId: number) => {
+    const onDeleteAnimalClickHandler = async (animalId: string) => {
         try {
-            animalsService.deleteAnimal(animalId);
-            return;
+
+            await animalsService.deleteAnimal(animalId);
+
+            setMyAnimals((prev) => {
+              return prev.filter((animal) => animal._id !== animalId);
+            });
+
+            navigate("/");
         } catch (error) {
-            setHasError(true);
+            const e = error as AxiosError;
+            setError({ message: e.response?.data as string });
         } finally {
             setIsLoading(false);
         }
@@ -54,20 +68,21 @@ export default function AnimalFile() {
                 </Row>
                 <Row>
                     <h4><strong>{animal!.sex}</strong></h4>
-                        <Button onClick = {() => navigate(`/my_herdbook/animals/${animalId}`)} className = {classes.form_btn} variant = "info">Edit<FaRegEdit /></Button>
-                            <p>Important Events: {animal!.importantEvents}</p>
+                        <Button onClick = {() => navigate(`/:userId/animals/${animal._id}`)} className = {classes.form_btn} variant = "info">Edit<FaRegEdit /></Button>
+                           
                             <p>Animal Details: {animal!.details}</p>
+                            <p>Important Events: {animal!.importantEvents}</p>
                             <p>Veterinary Notes: {animal!.veterinaryNotes}</p>
-                        <Button onClick = {() => onDeleteAnimalClickHandler(animal!.id)} className = {classes.form_btn} variant = "danger">Delete<MdDeleteForever /></Button>
+                        <Button onClick = {() => onDeleteAnimalClickHandler(animal!._id)} className = {classes.form_btn} variant = "danger">Delete<MdDeleteForever /></Button>
                 </Row>
             </div>
         )}
             
         </Container>
 
-    return animal? (
+    return animalId? (
         <div>
-      {hasError ? <Alert variant = "danger">Something went wrong. Please try again</Alert> : pageContents}
+      {error ? <Alert variant = "danger">Something went wrong. Please try again</Alert> : pageContents}
       </div>
     ) : (<div>Animal Details Page for animal with id of: { animalId } could not be found! </div>);
 }

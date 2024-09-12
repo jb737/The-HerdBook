@@ -1,3 +1,7 @@
 .submit_btn {
     width: 70%;
 }
+
+.li_item {
+    text-decoration: none;
+}

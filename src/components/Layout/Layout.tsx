@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import classes from "./Layout.module.css";
 import { Navbar, Container, Nav } from "react-bootstrap";
-import { Link, NavLink, Outlet, useNavigate } from "react-router-dom";
+import { Link, Navigate, NavLink, Outlet, useNavigate } from "react-router-dom";
 
 import { FiMessageSquare } from "react-icons/fi";
 import { IoSettingsOutline } from "react-icons/io5";
@@ -12,12 +12,12 @@ import { UserContext } from "../../contexts/userContext";
 export default function Layout () {
     const [theme] = useState(window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light");
     const navigate = useNavigate();
-    const { setUser} = useContext(UserContext);
+    const { userId: user, setUserId: setUser} = useContext(UserContext);
     const onLogoutClickHandler = () => {
         setUser(undefined);
         navigate("/account/login");
     }
-    return (
+    return user? (
         <div data-theme = {theme} className = {classes.page_container}>
         <div className = {classes.navigation_container}>
     <Navbar expand="lg" className={classes.navbar }>
@@ -53,5 +53,5 @@ export default function Layout () {
             <Outlet />
         </Container>
         </div>
-    );
+    ) : <Navigate to = "/account/login" />;
 }

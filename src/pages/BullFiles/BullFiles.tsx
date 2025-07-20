@@ -4,7 +4,7 @@ import { UserContext } from "../../contexts/userContext";
 import Animal from "../../models/Animal";
 import { Alert, Container } from "react-bootstrap";
 import usersService from "../../services/usersService";
-
+import classes from "./BullFiles.module.css";
 
 export default function BullFiles() {
     const { userId } =useContext(UserContext);
@@ -35,13 +35,16 @@ export default function BullFiles() {
       {isLoading ? (<h5>Loading...</h5>) : (
           <>
           <Container>
-          <Link className = "btn btn-secondary mt-5 mb-5" to = "/:userId/animals">Add an Animal File</Link>
+          <Link className = "btn btn-secondary mt-5 mb-5" to = "/:userId/addanimals">Add an Animal File</Link>
           <h1>Bull Files:</h1>
           <p>Bull Head Count: {myBullAnimals.length}</p>
         
-      <ul>   
+       <ul className={classes.list}>   
           {myBullAnimals.map((animal) => (
-             <Link to = {`/:userId/animals/${animal._id}`}><li key = {animal._id}>{animal.name}</li></Link>
+             <div key={animal._id}>
+    <Link to={`/:userId/animals/${animal._id}`}>{animal.name}</Link>
+    <li className={classes.li_item}></li>
+  </div>
           ))
          }
       </ul>

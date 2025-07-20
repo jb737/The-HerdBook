@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { Link, Navigate, useParams } from "react-router-dom";
 import { Alert, Button, Col, Container, Form, InputGroup, Row } from "react-bootstrap";
-import classes from "./LandingPage.module.css"
+import classes from "./LandingPage.module.css";
 import { UserContext } from "../../contexts/userContext";
 import Animal from "../../models/Animal";
 import { IoSearch } from "react-icons/io5";
@@ -32,7 +32,7 @@ useEffect(() => {
 
 const pageContents =    <div>  <Row>
 <Col>
-    <Link className = "btn btn-secondary mt-5 mb-5" to = "/:userId/animals">Add an Animal File</Link>
+    <Link className = "btn btn-secondary mt-5 mb-5" to = "/:userId/addanimals">Add an Animal File</Link>
 </Col>
 <Col>
 <InputGroup className="mt-5 mb-3">
@@ -55,10 +55,12 @@ const pageContents =    <div>  <Row>
   <p>Total head count: {myAnimals.length}</p>
   <ul className={classes.list}>
    {myAnimals.map((animal) => (
-     <div> <Link to = {`/:userId/animals/${animal._id}`}>{animal.name}</Link><li className={classes.li_item} key = {animal._id}>
-      </li>
-    </div> 
-   ))}
+  <div key={animal._id}>
+    <Link to={`/:userId/animals/${animal._id}`}>{animal.name}</Link>
+    <li className={classes.li_item}></li>
+  </div>
+))}
+
    
 </ul>
 </div>

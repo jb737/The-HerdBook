@@ -68,13 +68,13 @@ export default function AnimalFile() {
                 </Row>
                 <Row>
                     <h4><strong>{animal!.sex}</strong></h4>
-                        <Button onClick = {() => navigate(`/:userId/animals/${animal._id}`)} className = {classes.form_btn} variant = "info">Edit<FaRegEdit /></Button>
-                           
-                            <p>Animal Details: {animal!.details}</p>
                             <p>Important Events: {animal!.importantEvents}</p>
+                            <p>Animal Details: {animal!.details}</p>
                             <p>Veterinary Notes: {animal!.veterinaryNotes}</p>
+                            </Row>
+                        <Button onClick = {() => navigate(`/:userId/addanimals/${animalId}`)} className = {classes.form_btn} variant = "info">Edit<FaRegEdit /></Button>
                         <Button onClick = {() => onDeleteAnimalClickHandler(animal!._id)} className = {classes.form_btn} variant = "danger">Delete<MdDeleteForever /></Button>
-                </Row>
+                
             </div>
         )}
             

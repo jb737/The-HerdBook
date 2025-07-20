@@ -18,9 +18,8 @@ const routes = createRoutesFromElements (
         <Route path = "steer_files" element = {<SteerFiles />} />
         <Route path = "bull_files" element = {<BullFiles />} />
             <Route path = ":userId/animals/:animalId" element = {<AnimalFile />} />
-            {/*<Route path =  "/:userId/animals" element = {<AnimalFormPage />} />*/}
-                <Route path =  "/:userId/animals/:animalId?" element = {<AnimalFormPage />} />
-    </Route>
+                <Route path =  "/:userId/addanimals/:animalId?" element =           {<AnimalFormPage />} />
+            </Route>
 
     <Route path = "/account">
         <Route path = "sign-up" element = {<CreateHerdBook />} />

@@ -32,15 +32,17 @@ export default function SteerFiles() {
     const pageContents =    <Container>
       {isLoading ?  (<h5>Loading...</h5>) : (
 <div>
-<div className = {classes.add_product_button_container}>
-<Link className = "btn btn-secondary mt-5 mb-5" to = "/:userId/animals">Add an Animal File</Link>
-</div>
+  <div className = {classes.add_product_button_container}>
+    <Link className = "btn btn-secondary mt-5 mb-5" to = "/:userId/addanimals">Add an Animal File</Link>
+  </div>
    <h1>Steer Files: </h1>
    <p>Steer Head Count: {mySteerAnimals.length}</p>
-   <ul>
-   {mySteerAnimals.map((animal: Animal) => (
-      
-      <Link to = {`/:userId/animals/${animal._id}`}><li key = {animal._id}>{animal.name}</li></Link>
+   <ul className={classes.list}>
+      {mySteerAnimals.map((animal: Animal) => (
+        <div key={animal._id}>
+          <Link to={`/:userId/animals/${animal._id}`}>{animal.name}</Link>
+          <li className={classes.li_item}></li>
+        </div>
    ))}
    
 </ul>

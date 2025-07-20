@@ -15,9 +15,10 @@ const animalsService = {
         return response.data;
     },
 
-    createAnimal: async (ownerId: string, name: string, sex: string,  details?: string, importantEvents?: string, veterinaryNotes?: string ): Promise<Animal> => {
+    createAnimal: async (ownerId: string,  name: string, sex: string, animalId:string,  details?: string, importantEvents?: string, veterinaryNotes?: string ): Promise<Animal> => {
         const response = await httpClient.post(BASE_PATH, {
             ownerId,
+            animalId,
             name,
             //herdBookName,
             sex,
@@ -32,11 +33,13 @@ const animalsService = {
         return httpClient.delete(`${BASE_PATH}/${animalId}`);
     },
     
-    updateAnimal: async(animalId: string, name: string, sex: string, details: string, veterinaryNotes: string): Promise<Animal> => {
+    updateAnimal: async(animalId: string, name: string, sex: string, details: string,importantEvents: string, veterinaryNotes: string): Promise<Animal> => {
         const response = await httpClient.put(`${BASE_PATH}/${animalId}`, {
+            animalId,
             name,
             sex,
             details,
+            importantEvents,
             veterinaryNotes,
         });
         return response.data;

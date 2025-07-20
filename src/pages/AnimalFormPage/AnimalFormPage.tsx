@@ -25,11 +25,11 @@ export default function AnimalFormPage() {
 
 
     useEffect(() => {
+        
      const getAnimal = async() => {
     try {
         setIsLoading(true);
         const response = await animalsService.getAnimalById(animalId!);
-        console.log(response); // Check the structure of the response
         const {name, sex, details, importantEvents, veterinaryNotes} = response;
         setName(name);
         setSex(sex!);
@@ -41,13 +41,11 @@ export default function AnimalFormPage() {
     } finally {
         setIsLoading(false);
     }
+};
+if(animalId){
+    getAnimal();
 }
-
-
-        if(animalId){
-            getAnimal();
-        }
-    }, [animalId])
+}, [animalId]);
 
 
     const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -65,6 +63,7 @@ export default function AnimalFormPage() {
             
             if (animalId) {
                     await animalsService.updateAnimal(
+                    animalId,
                     name,
                     sex,
                     details,
@@ -100,9 +99,10 @@ export default function AnimalFormPage() {
         }
     };*/}
 
-     const pageContents = isLoading ? (<h5>Loading...</h5>) : ( <Container>
-     <Row className="mt-5"> <h1>Add an Animal:</h1></Row>
-     <Form noValidate validated={isValidated} onSubmit={onSubmitHandler}>
+     const pageContents = isLoading ? (<h5>Loading...</h5>) : ( 
+     <Container>
+        <Row className="mt-5"> <h1>Add an Animal:</h1></Row>
+        <Form noValidate validated={isValidated} onSubmit={onSubmitHandler}>
          <Row className = "text-center mt-5 mb-5">
          <Row ><Button className = {classes.submit_btn +" mb-3"} type = "submit" variant="success">Put this record in the Herd Book <IoSendOutline /></Button></Row>
          <Col>
@@ -110,7 +110,7 @@ export default function AnimalFormPage() {
                  <Form.Label>Animal Name or Id:</Form.Label>
                  <Form.Control
                  required
-                  type="name" 
+                  type="text" 
                   value = {name}
                   onChange= {(e) => setName(e.target.value)}
                   />
@@ -121,7 +121,7 @@ export default function AnimalFormPage() {
                  <Form.Label>Animal Sex:</Form.Label>
                  <Form.Control
                  //required
-                  type="sex" 
+                  type="text" 
                   value = {sex}
                   onChange= {(e) => setSex(e.target.value)}
                   />
@@ -132,7 +132,7 @@ export default function AnimalFormPage() {
         <Form.Group className="mb-3" >
              <Form.Label>Important Events:</Form.Label>
              <Form.Control as="textarea" rows={3}
-             type = "importantEvents"
+             type = "itext"
              value = {importantEvents}
              onChange = {(e) => setImportantEvents(e.target.value)} />
              </Form.Group>
@@ -141,7 +141,7 @@ export default function AnimalFormPage() {
              <Form.Group className="mb-3" >
              <Form.Label>Animal Details</Form.Label>
              <Form.Control as="textarea" rows={3}
-             type = "details"
+             type = "text"
              value = {details}
              onChange = {(e) => setDetails(e.target.value)} />
              </Form.Group>
@@ -150,7 +150,7 @@ export default function AnimalFormPage() {
              <Form.Group className="mb-3" >
              <Form.Label>Veterinary Notes:</Form.Label>
              <Form.Control as="textarea" rows={3}
-             type = "veterinaryNotes"
+             type = "text"
              value = {veterinaryNotes}
              onChange = {(e) => setVeterinaryNotes(e.target.value)} />
              </Form.Group>
